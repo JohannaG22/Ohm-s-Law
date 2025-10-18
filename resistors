@@ -1,6 +1,7 @@
 //*****************************************************************************
 /* Program Description: Program used to find the total voltage and current, 
-   when given total resistance, Resistor 1, Resistor 3, and Current 2 */
+   when given total resistance, Resistor 1, Resistor 3, and Current 2
+   (for parallel circuit)*/
 //*****************************************************************************
 
 // *************************** DECLARING LIBRARIES ****************************
