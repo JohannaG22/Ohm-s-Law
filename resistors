@@ -1,0 +1,144 @@
+//*****************************************************************************
+/* Program Description: Program used to find the total voltage and current, 
+   when given total resistance, Resistor 1, Resistor 3, and Current 2 */
+//*****************************************************************************
+
+// *************************** DECLARING LIBRARIES ****************************
+/* #include <iostream> - used to include header file in Program and 
+   allow for use of input(cin) and output(cout) operations. */ 
+/* #include <iomanip> - used to manipulate the format of input
+   and output streams(setprecision, fixed, scientific, setw, left,
+   right, setfill, etc). */ 
+#include <iostream> 
+#include <iomanip>
+
+ 
+// using namespace std - to avoid repeating "std::" for every line of code. 
+using namespace std; 
+
+// ************************* DECLARING NAMED CONSTANT *************************
+/* named constant- usually put before main, preventing I2 from being changed
+   during execution. */
+const double I2 = 12.5;
+
+// int main() - heading of the function 
+int main() 
+{
+    // ************************** DECLARING VARIABLES *************************
+    // declaring variable R_Total (Total Resistance) as a double precision 
+    double R_Total;
+    // declaring variable R1 (Resistor 1) as a double precision
+    double R1;
+    // declaring variable R3 (Resistor 3) as a double precision
+    double R3;
+    // declaring variable V_Total (Total Voltage) as a double precision
+    double V_Total;
+    // declaring variable I_Total (Total Current) as a double precision
+    double I_Total;
+    // declaring variable I1 (Current 1) as a double precision
+    double I1;
+    // declaring variable I3 (Current 3) as a double precision
+    double I3;
+    // declaring variable R2 (Resistor 2) as a double precision
+    double R2;
+    
+    /* fixing all values (except input values and constants) to have 2 digits 
+       following the decimal point */
+    cout << fixed << setprecision(2);
+
+    // ************************** FORMATTING OUTPUT ***************************
+    // outputting a title 
+    cout << "*****************************************************************************************************" << endl;
+    cout << "                                   1381.03: Parallel Circuit "
+         << "Program" << endl;
+    cout << "*****************************************************************************************************" << endl;
+    
+    /* outputting message to user, requesting inputs, and storing them in their
+       corresponding variable */
+    cout << "Please enter value for resistor R1 (Format: 2.3): ";
+    cin >> R1;
+    cout << "Please enter value for resistor R3 (Format: 2.3): ";
+    cin >> R3;
+    cout << "Please enter the value for total resistor R_Total (Format: 2.3): ";
+    cin >> R_Total;
+    
+    // using endl manipulator to create 2 empty lines of space  
+    cout << endl << endl;
+    
+    // ************************* FORMULAS/CALCULATIONS ************************
+    // Formula = R_Total ((1/R_Total) = ((1/R1) + (1/R2) + (1/R3)))
+    R2 = (1.0 / ( (1 / R_Total) - (1 / R1) - (1 / R3) ) );
+    /* Formula: Ohm's Law (V = IR), using it to find V_Total since 
+       voltage remains the same throughout the whole circuit and know 
+       we know R2 */
+    V_Total = I2 * R2;
+    // using now known variable (V_Total) to find the missing currents
+    I3 = V_Total / R3;
+    I1 = V_Total / R1;
+    // I_Total is the sum of all the currents (I1, I2, and I3)
+    I_Total = I1 + I2 + I3;
+    
+    // *****SETTING VARIABLE VALUES TO BE ROUNDED UP TO THE NEAREST TENTH *****
+    V_Total = static_cast<double>(static_cast<int>((V_Total * 10.0) + 0.5) / 10.0);
+    I_Total = static_cast<double>(static_cast<int>((I_Total * 10.0) + 0.5) / 10.0);
+    I1 = static_cast<double>(static_cast<int>((I1 * 10.0) + 0.5) / 10.0);
+    I3 = static_cast<double>(static_cast<int>((I3 * 10.0) + 0.5) / 10.0);
+    R2 = static_cast<double>(static_cast<int>((R2 * 10.0) + 0.5) / 10.0);
+    
+    // ************************** FORMATTING OUTPUT ***************************
+    // outputting a string with a subtitle 
+    cout << "Parallel Circuit Information" << endl;
+    // outputting a string of characters to have a presentable output
+    cout << "---------------------------------------------------------------------------" << endl;
+    // outputting a series of strings regarding the total voltage 
+    // using left and setw for formatting purposes 
+    cout << left << setw(12) << "V_Total =";
+    cout << setw(12) << V_Total;
+    cout << "Volts" << endl;
+    // outputting a series of strings regarding the total current 
+    cout << setw(12) << "I_Total =";
+    cout << setw(12) << I_Total;
+    cout << "Amps" << endl;
+    //outputting a series of strings regarding the total Resistance
+    cout << setw(12) << "R_Total =";
+    cout << setw(12) << R_Total;
+    cout << "Ohms" << endl;
+    // outputting a string of characters to have a presentable output
+    cout << "---------------------------------------------------------------------------" << endl;
+    // using endl manipulator to create 2 empty lines of space  
+    cout << endl << endl;
+    
+    // outputting a string of characters to have a presentable output
+    cout << "---------------------------------------------------------------------------" << endl;
+    // outputting a series of strings, using setw for formatting purposes
+    cout << setw(12) << "Branch #";
+    cout << setw(14) << "Voltage (V)";
+    cout << setw(18) << "Current (Amps)";
+    cout << setw(20) << "Resistance (Ohms)" << endl;
+    // outputting a string of characters to have a presentable output
+    cout << "---------------------------------------------------------------------------" << endl;
+    
+    // outputting V, Amps, Ohms values for all three branches
+    // using setw() and endl manipulator for formatting purposes
+    cout << setw(12) << "Branch 1";
+    cout << setw(14) << V_Total;
+    cout << setw(18) << I1;
+    cout << setw(20) << R1 << endl;
+    cout << setw(12) << "Branch 2";
+    cout << setw(14) << V_Total;
+    cout << setw(18) << I2;
+    cout << setw(20) << R2 << endl;
+    cout << setw(12) << "Branch 3";
+    cout << setw(14) << V_Total;
+    cout << setw(18) << I3;
+    cout << setw(20) << R3 << endl;
+    
+    // outputting endl mamipulator for formatting purposes
+    cout << endl;
+    
+    // outputting a string with a message for the user
+    cout << "Press the ENTER key to continue..." << endl;
+
+    // closing the program
+    return 0;
+}
